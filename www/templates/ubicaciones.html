@@ -1,0 +1,60 @@
+<ion-view view-title="Ubicaciones">
+    <ion-content class="light-bg">
+        <div class="padding">
+            <div>
+                <form>
+                    <label class="item item-input item-select margin-tp-25">
+                        <div class="input-label">
+                            Ubicación
+                        </div>
+                        <select ng-model="choice" ng-options="obj.codigo as obj.nombre for obj in options">
+                            <option value="">Seleccione</option>
+                        </select>
+                    </label>
+                    <button class="button button-block button-clear btn-green" ng-click="getInfoTag()">
+                        Leer Tag
+                    </button>
+                    <!--  <h2>Chosen = {{ choice }}</h2> -->
+                    <!--  <button class="button button-block button-clear btn-green" ng-click="openPopover1($event)">
+                    Leer Tag
+                </button> -->
+                    <!--<h2>Chosen = {{ choice }}</h2>-->
+                    <h5 class="center soft-gray margin-tp-50">Productos a Ubicar</h5>
+                    <div class="search-result">
+                        <div class="list">
+                            <div class="item item-icon-left margin-10 item-pro" ng-repeat="item in ubicate_products track by $index">
+                                <i class="icon ion-location icon-gray"></i>
+                                <span class="code soft-gray">{{item.producto_codigo}}</span>-
+                                <span class="name-product soft-gray">{{item.producto_nombre}}</span>
+                                <span class="ion-close-circled icon-cancel" ng-click="del_product($index)"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <button class="button button-block button-clear btn-green" ng-click="showConfirm(choice)">
+                                Guardar
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+    </ion-content>
+</ion-view>
+<!-- PopUp -->
+<script id="my-popover.html" type="text/ng-template">
+    <ion-popover-view class="center-popover size-popover">
+        <ion-content scroll="false">
+            <img src="img/cellphone1.png" class="img-asigntag center-x">
+            <img src="img/loading.gif" class="gifload">
+            <div class="row">
+                <div class="col">
+                    <span class="thin-tittle popover-text">Acerque la etiqueta NFC</span>
+                    <button class="button button-block button-stable center-x popover-btn" ng-click="closePopover($event)">
+                        Cancelar
+                    </button>
+                </div>
+            </div>
+        </ion-content>
+    </ion-popover-view>
+</script>

@@ -1,0 +1,21 @@
+<ion-view view-title="Login">
+    <ion-content class="bg-color" scroll="false">
+        <div class="container center-y">
+            <div class="logo-container">
+                <img src="img/logo4.png" alt="" class="logo center-x">
+            </div>
+
+            <label class="item item-input input-lb">
+                <i class="icon ion-person log-icon"></i>
+                <input type="text" ng-model="user.username" class="input-login" placeholder="Email">
+            </label>
+            <label class="item item-input input-lb">
+                <i class="icon ion-locked log-icon"></i>
+                <input type="password" ng-model="user.password" class="input-login" placeholder="Contraseña">
+            </label>
+            <button class="button button-block button-clear btn-login" ng-click="login(user)">
+                Acceder <i class="icon ion-log-in go-icon"></i>
+            </button>
+        </div>
+    </ion-content>
+</ion-view>

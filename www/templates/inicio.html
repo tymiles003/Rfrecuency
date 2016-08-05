@@ -1,0 +1,68 @@
+<ion-view view-title="Inicio">
+    <ion-content class="center nfc-container-check light-bg">
+        <img src="img/nfc-checkpoint-2.png" alt="" id="nfc_img">
+        <p id="nfc_info" class="padding">Acerca un tag para obtener la información del producto</p>
+        <!-- <button class="button button-block" ng-click="getProductInfo()">Consultar producto</button> -->
+        <div id="info_tag"></div>
+    </ion-content>
+</ion-view>
+<!-- Modal -->
+<script id="detailsProduct.html" type="text/ng-template">
+    <ion-view>
+        <ion-header-bar class="bar-stable bar bar-header">
+            <h2 class="title thin-tittle">Información del Producto</h2>
+            <button class="button button-clear button-primary" ng-click="closeModal()">Cerrar</button>
+        </ion-header-bar>
+        <ion-content>
+            <div class="list card">
+                <div class="item item-avatar">
+                    <img src="img/clothes-icons/wm-coat.jpg">
+                    <div class="item-descr">
+                        <h2 class="soft-gray">{{productInfo.producto_nombre}} </h2>
+                        <p class="soft-gray">
+                            <i class="icon-pesos soft-gray">$</i>
+                            <span class="soft-gray product-val">{{productInfo.costo}}</span>
+                        </p>
+                    </div>
+                </div>
+                <div class="item item-image padding-25">
+                    <img ng-if="productInfo.foto != null" ng-src="http://rfidinventory.xyz/{{productInfo.foto}}">
+                    <img ng-if="productInfo.foto == null" ng-src="img/default_image.png">
+                </div>
+                <div class="item item-icon-left maingreen-font" href="#">
+                    <i class="icon list-icon ion-ios-barcode"></i><span class="float-lf soft-gray">Código:</span><span class="pro-info">{{productInfo.producto_codigo}}</span>
+                </div>
+                <div class="item item-icon-left maingreen-font" href="#">
+                    <i class="icon list-icon ion-android-calendar"></i><span class="float-lf soft-gray">Compra:</span><span class="pro-info">{{productInfo.fecha}}</span>
+                </div>
+                <div class="item item-icon-left maingreen-font" href="#">
+                    <i class="icon list-icon ion-archive"></i> <span class="float-lf soft-gray">Carga #:</span><span class="pro-info">{{productInfo.carga}}</span>
+                </div>
+                <div class="item item-icon-left maingreen-font" href="#">
+                    <i class="icon list-icon ion-android-cart"></i><span class="float-lf soft-gray">Proveedor:</span><span class="pro-info">{{productInfo.proveedor}}</span>
+                </div>
+                <div class="item item-icon-left maingreen-font" href="#">
+                    <i class="icon list-icon ion-pricetag"></i><span class="float-lf soft-gray">Talla:</span><span class="pro-info">{{productInfo.talla}}</span>
+                </div>
+                <div class="item item-icon-left maingreen-font" href="#">
+                    <i class="icon list-icon ion-android-globe"></i><span class="float-lf soft-gray">Marca:</span><span class="pro-info">{{productInfo.marca}}</span>
+                </div>
+                <div class="item item-icon-left maingreen-font" href="#">
+                    <i class="icon list-icon ion-android-pin"></i><span class="float-lf soft-gray">Ubicación:</span><span class="pro-info">{{productInfo.ubicacion_nombre}}</span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <button class="button button-block button-clear btn-green" ng-click="gotoMovements()">
+                        Movimiento
+                    </button>
+                </div>
+                <div class="col">
+                    <button class="button button-block button-clear btn-green" ng-click="gotoUbications()">
+                        Ubicación
+                    </button>
+                </div>
+            </div>
+        </ion-content>
+    </ion-view>
+</script>

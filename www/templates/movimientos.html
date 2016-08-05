@@ -1,0 +1,80 @@
+<ion-view view-title="Movimientos">
+    <ion-content class="light-bg">
+        <div class="row">
+            <div class="col">
+                <a href="#" class="item product-item  item-icon-left " ng-click="togleState()">
+                    <i class="icon ion-android-add-circle icon-products"></i> Entrada
+                </a>
+                <label class="item item-input item-select" ng-show="show">
+                    <div class="input-label">
+                        Tipo Movimiento
+                    </div>
+                    <select ng-model="movimiento.choice" ng-options="obj.id as obj.nombre for obj in mov_types | filter:{ tipo : '1'}">
+                        <option>Seleccione</option>
+                    </select>
+                </label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <a href="#" class="item product-item  item-icon-left" ng-click="togleStateOut()">
+                    <i class="icon ion-minus-circled icon-products"></i> Salida
+                </a>
+                <label class="item item-input item-select" ng-show="showOut">
+                    <div class="input-label">
+                        Tipo Movimiento
+                    </div>
+                    <select ng-model="movimiento.choice" ng-options="obj.id as obj.nombre for obj in mov_types | filter:{ tipo: '2'}">
+                        <option>Seleccione</option>
+                    </select>
+                </label>
+            </div>
+        </div>
+        <h1>{{choice}}</h1>
+        <div class="row">
+            <div class="col">
+                <label class="item item-input">
+                    <textarea ng-model="movimiento.description" placeholder="Descripción del movimiento"></textarea>
+                </label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <a class="button button-block button-clear btn-green" ng-click="getInfoTag()">Leer Tag</a>
+            </div>
+        </div>
+        <h5 class="center soft-gray">Productos</h5>
+        <div class="search-result">
+            <div class="list">
+                <div class="item item-icon-left margin-10 item-pro" ng-repeat="item in move_products track by $index">
+                    <i class="icon ion-location icon-gray"></i>
+                    <span class="code soft-gray">{{item.producto_codigo}}</span>-
+                    <span class="name-product soft-gray">{{item.producto_nombre}}</span>
+                    <span class="ion-close-circled icon-cancel" ng-click="del_product($index)"></span>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <a class="button button-block button-clear btn-green" ng-click="showConfirm(movimiento)">Guardar</a>
+            </div>
+        </div>
+    </ion-content>
+</ion-view>
+<!-- PopUp -->
+<script id="my-popover.html" type="text/ng-template">
+    <ion-popover-view class="center-popover size-popover">
+        <ion-content scroll="false">
+            <img src="img/cellphone1.png" class="img-asigntag center-x">
+            <img src="img/loading.gif" class="gifload">
+            <div class="row">
+                <div class="col">
+                    <span class="thin-tittle popover-text">Acerque la etiqueta NFC</span>
+                    <button class="button button-block button-stable center-x popover-btn" ng-click="closePopover($event)">
+                        Cancelar
+                    </button>
+                </div>
+            </div>
+        </ion-content>
+    </ion-popover-view>
+</script>

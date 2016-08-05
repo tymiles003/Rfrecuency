@@ -1,0 +1,10 @@
+{
+  "name": "rfid_inventory2",
+  "app_id": "",
+  "proxies": [
+      {
+        "path": "/proxy",
+        "proxyUrl": "http://104.236.196.14/app_dev.php"
+      }
+    ]
+}

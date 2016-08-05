@@ -1,0 +1,137 @@
+<ion-view view-title="Buscar">
+    <ion-nav-buttons side="right">
+        <button class="button button-clear" ng-click="newSearch(product)" ng-model="product">
+            <i class="icon ion-search"></i>
+        </button>
+    </ion-nav-buttons>
+    <ion-content class="light-bg">
+        <div class="padding">
+            <div class="list">
+                <h4 class="center soft-gray">Filtros</h4>
+                <div class="row">
+                    <div class="col">
+                        <li class="item item-checkbox light-bg soft-gray">
+                            <label class="checkbox">
+                                <input type="checkbox" ng-model="dataService1.isChecked" ng-click="showInput('show_code')">
+                            </label>
+                            Código
+                        </li>
+                        <label class="item item-input paddin-0" ng-show="show_code">
+                            <input type="text" ng-model="product.code" class="input-search">
+                        </label>
+                    </div>
+                    <div class="col">
+                        <li class="item item-checkbox light-bg soft-gray">
+                            <label class="checkbox">
+                                <input type="checkbox" ng-model="dataService2.isChecked" ng-click="showInput('show_provider')">
+                            </label>
+                            Proveedor
+                        </li>
+                        <label class="item item-input paddin-0" ng-show="show_provider">
+                            <input type="text" ng-model="product.provider" class="input-search">
+                        </label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <li class="item item-checkbox light-bg soft-gray">
+                            <label class="checkbox">
+                                <input type="checkbox" ng-model="dataService3.isChecked" ng-click="showInput('show_charge')">
+                            </label>
+                            # Carga
+                        </li>
+                        <label class="item item-input paddin-0" ng-show="show_charge">
+                            <input type="text" ng-model="product.charge" class="input-search">
+                        </label>
+                    </div>
+                    <div class="col">
+                        <li class="item item-checkbox light-bg soft-gray">
+                            <label class="checkbox">
+                                <input type="checkbox" ng-model="dataService4.isChecked" ng-click="showInput('show_ubication')">
+                            </label>
+                            Ubicación
+                        </li>
+                        <label class="item item-input paddin-0" ng-show="show_ubication">
+                            <input type="text" ng-model="product.ubication" class="input-search">
+                        </label>
+                    </div>
+                </div>
+                <button class="button button-block button-clear btn-green" ng-click="searchProduct(product)">
+                    Buscar
+                </button>
+            </div>
+            <h5 class="center soft-gray">Resultados</h5>
+            <div class="search-result">
+                <div class="list">
+                    <h4 class="assertive nfc-container-check pading-top-15" ng-show="no_found_products">No se encontrarón productos</h4>
+                    <div class="item item-icon-left margin-10 item-pro" ng-repeat="item in found_products track by $index">
+                        <i class="icon ion-checkmark-round icon-check"></i>
+                        <span class="code soft-gray">{{item.producto_codigo}}</span>-
+                        <span class="name-product soft-gray">{{item.producto_nombre}}</span>
+                        <a class="ion-plus-circled icon-plus" ng-click="show_details($index)"></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </ion-content>
+</ion-view>
+<!-- Modal -->
+<script id="detailsProduct.html" type="text/ng-template">
+    <ion-view>
+        <ion-header-bar class="bar-stable bar bar-header">
+            <h2 class="title thin-tittle">Información del Producto</h2>
+            <button class="button button-clear button-primary" ng-click="closeModal()">Cerrar</button>
+        </ion-header-bar>
+        <ion-content>
+            <div class="list card">
+                <div class="item item-avatar">
+                    <img src="img/clothes-icons/wm-coat.jpg">
+                    <div class="item-descr">
+                        <h2 class="soft-gray">{{single_product.producto_nombre}} </h2>
+                        <p class="soft-gray">
+                            <i class="icon-pesos soft-gray">$</i>
+                            <span class="soft-gray product-val">{{single_product.costo}}</span>
+                        </p>
+                    </div>
+                </div>
+                <div class="item item-image padding-25">
+                    <img ng-if="single_product.foto != null" ng-src="http://rfidinventory.xyz{{single_product.foto}}">
+                    <img ng-if="single_product.foto == null" ng-src="img/default_image.png">
+                </div>
+                <div class="item item-icon-left maingreen-font" href="#">
+                    <i class="icon list-icon ion-ios-barcode"></i><span class="float-lf soft-gray">Código:</span><span class="pro-info">{{single_product.producto_codigo}}</span>
+                </div>
+                <div class="item item-icon-left maingreen-font" href="#">
+                    <i class="icon list-icon ion-android-calendar"></i><span class="float-lf soft-gray">Compra:</span><span class="pro-info">{{single_product.fecha}}</span>
+                </div>
+                <div class="item item-icon-left maingreen-font" href="#">
+                    <i class="icon list-icon ion-archive"></i> <span class="float-lf soft-gray">Carga #:</span><span class="pro-info">{{single_product.carga}}</span>
+                </div>
+                <div class="item item-icon-left maingreen-font" href="#">
+                    <i class="icon list-icon ion-android-cart"></i><span class="float-lf soft-gray">Proveedor:</span><span class="pro-info">{{single_product.proveedor}}</span>
+                </div>
+                <div class="item item-icon-left maingreen-font" href="#">
+                    <i class="icon list-icon ion-pricetag"></i><span class="float-lf soft-gray">Talla:</span><span class="pro-info">{{single_product.talla}}</span>
+                </div>
+                <div class="item item-icon-left maingreen-font" href="#">
+                    <i class="icon list-icon ion-android-globe"></i><span class="float-lf soft-gray">Marca:</span><span class="pro-info">{{single_product.marca}}</span>
+                </div>
+                <div class="item item-icon-left maingreen-font" href="#">
+                    <i class="icon list-icon ion-android-pin"></i><span class="float-lf soft-gray">Ubicación:</span><span class="pro-info">{{single_product.ubicacion_nombre}}</span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <button class="button button-block button-clear btn-green" ng-click="gotoMovements(single_product)">
+                        Movimiento
+                    </button>
+                </div>
+                <div class="col">
+                    <button class="button button-block button-clear btn-green" ng-click="gotoUbications()">
+                        Ubicación
+                    </button>
+                </div>
+            </div>
+        </ion-content>
+    </ion-view>
+</script>

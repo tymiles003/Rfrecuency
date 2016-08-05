@@ -1,0 +1,134 @@
+<ion-view view-title="Crear Productos">
+    <ion-nav-buttons side="right">
+        <button class="button button-clear" ng-click="getNotaged()">
+            <i class="icon ion-loop"></i>
+        </button>
+    </ion-nav-buttons>
+    <ion-content class="light-bg">
+        <div class="padding">
+            <div class="list">
+                <a href="#" class="item product-item  item-icon-left margin-10-topbot" ng-click="newProduct()">
+                    <i class="icon ion-android-add-circle icon-products"></i> 
+                    Nuevo Producto
+                </a>
+                <!--
+                <a href="#" class="item product-item  item-icon-left margin-10-topbot" ng-click="openModal()">
+                    <i class="icon ion-ios-copy icon-products"></i> Duplicar Último
+                </a>
+-->
+                <a href="#" class="item product-item  item-icon-left margin-10-topbot" ng-click="cleanTag()">
+                    <i class="icon ion-trash-a icon-products"></i> Borrar Tag
+                </a>
+            </div>
+            <h4 class="title center thin-tittle">Pendientes Por Tag</h4>
+            <div class="list">
+                <div class="item item-thumbnail-left padding margin-10-topbot product-item" ng-repeat="item in products_no_tag track by $index">
+                    <img ng-if="item.foto != null" ng-src="http://rfidinventory.xyz/{{item.foto}}?{{cache}}" class="product-image">
+                    <img ng-if="item.foto == null" ng-src="img/default_image.png" class="product-image">
+                    <h2 class="margin-lf-100 soft-gray pro-title" ng-bind-html="item.producto_nombre"></h2>
+                    <h2 class="margin-lf-100 soft-gray pro-title" ng-bind-html="item.producto_codigo"></h2>
+                    <a class="button btn-green btn-clear addtag-btn tk-photo" ng-click="takePicture($index)"> <i class="icon ion-camera tk-icon"></i></a>
+                    <a class="button btn-green addtag-btn" ng-click="setTagProduct($index)">Asignar Tag</a>
+                </div>
+            </div>
+            <div id="myImage">
+            </div>
+        </div>
+    </ion-content>
+</ion-view>
+<!-- Modal -->
+<script id="createSingleProduct.html" type="text/ng-template">
+    <ion-modal-view>
+        <ion-header-bar class="bar-stable bar bar-header">
+            <h2 class="title thin-tittle">Crear Producto Único</h2>
+            <button class="button button-clear button-primary" ng-click="closeModal()">Cerrar</button>
+        </ion-header-bar>
+        <ion-content class="">
+            <div class="list list-inset">
+                <div class="list list-inset">
+                    <label class="item item-input lbl-modal">
+                        Tomar foto
+                        <button class="button btn-green button-clear btn-camera" ng-click="takePictureProduct()">
+                            <i class="icon ion-camera"></i>
+                        </button>
+                    </label>
+  <div class="item item-image padding-25">
+                    <img id="single_img" src="img/default_image.png">
+                </div>
+
+                </div>
+                <form name="form" ng-submit="createProduct(product)">
+                    <label class="item item-input">
+                        <input type="text" placeholder="Código ó Nombre" ng-model="search">
+                        <button class="button icon ion-search button-clear btn-green margin-r-5"></button>
+                    </label>
+                    <label class="item item-input item-select">
+                        <div class="input-label">
+                            Producto
+                        </div>
+                        <select ng-model="product.choice" ng-options="obj.id as obj.codigo+' - '+obj.nombre for obj in products | filter: search">
+                            <option value="">Seleccione
+                            </option>
+                        </select>
+                    </label>
+                    <label class="item item-input">
+                        <span class="input-label">Carga</span>
+                        <input type="number" class="input-modal" name="product.charge" ng-model="product.charge
+" placeholder="#">
+                    </label>
+                    <!--<h2>Chosen = {{ product.choice }}</h2>-->
+                    <label class="item item-input">
+                        <span class="input-label">Proveedor</span>
+                        <input type="text" class="input-modal" ng-model="product.provider">
+                    </label>
+                    <label class="item item-input">
+                        <span class="input-label">Marca</span>
+                        <input type="text" class="input-modal" ng-model="product.brand">
+                    </label>
+                    <label class="item item-input">
+                        <span class="input-label">Talla</span>
+                        <input type="text" class="input-modal" ng-model="product.size">
+                    </label>
+                    <label class="item item-input">
+                        <span class="input-label">Precio</span>
+                        <input type="number" class="input-modal" placeholder="$" ng-model="product.price">
+                    </label>
+                    <label class="item item-input">
+                        <span class="input-label">Fecha</span>
+                        <input type="text" class="input-modal" ng-model="today" disabled ng-model="product.date_created">
+                    </label>
+                    <button type="submit" class="button button-block btn-green">
+                        Asignar Tag
+                    </button>
+                </form>
+            </div>
+        </ion-content>
+    </ion-modal-view>
+</script>
+<!-- PopUp -->
+<script id="my-popover.html" type="text/ng-template">
+    <ion-popover-view class="center-popover size-popover">
+        <ion-content scroll="false">
+            <img src="img/cellphone1.png" class="img-asigntag center-x">
+            <img src="img/loading.gif" class="gifload">
+            <div class="row">
+                <div class="col">
+                    <span class="thin-tittle popover-text">Acerque la etiqueta NFC</span>
+                    <button class="button button-block button-stable center-x popover-btn" ng-click="closePopover($event)">
+                        Cancelar
+                    </button>
+                </div>
+            </div>
+        </ion-content>
+    </ion-popover-view>
+</script>
+<script id="checked.html" type="text/ng-template">
+    <ion-popover-view class="center-popover">
+        <ion-content scroll="false">
+            <ion-header-bar class="bar bar-stable">
+                <h1 class="title">Guardado</h1>
+            </ion-header-bar>
+            <i class="icon ion-checkmark-circled"></i>
+        </ion-content>
+    </ion-popover-view>
+</script>
